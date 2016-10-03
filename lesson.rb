@@ -19,13 +19,11 @@ class Lesson < Sinatra::Application
   configure do
     set :raise_sinatra_param_exceptions, true
     set show_exceptions: false
-    set :public_folder, 'uploads'
   end
 
   before do
-        content_type 'application/json'
+    content_type 'application/json'
   end
-
 
   get '/last_calculation' do
     calculation = Calculation.find params['id']
@@ -61,11 +59,5 @@ class Lesson < Sinatra::Application
   error Mongoid::Errors::DocumentNotFound do
     status 404
     { error: "Not found" }.to_s
-  end
-end
-
-
-class String
-  def hello
   end
 end
