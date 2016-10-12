@@ -30,7 +30,7 @@ class TaskModule < Sinatra::Base
     content_type 'application/json'
   end
 
-  get '/' do
+  get '/:id' do
     task = Task.find params['id']
     json(
         {task:
@@ -39,6 +39,13 @@ class TaskModule < Sinatra::Base
                  title: task.title
              }
         }
+    )
+  end
+
+  get '/' do
+    all_tasks = Task.all?(:limit => 10)
+    json(
+
     )
   end
 

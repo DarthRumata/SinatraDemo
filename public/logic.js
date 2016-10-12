@@ -44,3 +44,7 @@ function setFormStateDisabled(form, state) {
         element.disabled = state;
     }
 }
+
+function refreshSavedImagesList() {
+
+}
