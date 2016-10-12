@@ -1,0 +1,61 @@
+h1 {
+    text-align: center;
+}
+
+.inline-block {
+     display: inline-block;
+ }
+
+.inline {
+    display: inline-block;
+}
+
+.container {
+    margin: 2% 2% 0;
+}
+
+.column {
+    width: 47.5%;
+    padding: 1%;
+}
+
+.block {
+    display: block;
+}
+
+#col1 {
+    border: 1px solid black;
+}
+
+#image_upload_success {
+    color: green;
+}
+
+#image_upload_failure {
+    color: red;
+}
+
+.hidden {
+    display: none;
+}
+
+.loader {
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 2px solid #3498db;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin: 10px 5px 0;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

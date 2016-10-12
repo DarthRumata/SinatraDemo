@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gem 'sinatra'
 gem 'sinatra-param'
@@ -9,3 +9,4 @@ gem 'dotenv'
 gem 'mongoid'
 gem 'sinatra-initializers'
 gem 'active_model_serializers'
+gem 'carrierwave-mongoid'

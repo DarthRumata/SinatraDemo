@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Service</title>
+</head>
+
+<body>
+
+<h1>Image processing server</h1>
+<div class="container">
+    <div class="inline column" id="col1">
+        <h2>Add new image</h2>
+        <form name="addImage" onsubmit="return addNewImage()">
+            <label for="field_image_id">Image ID:</label>
+            <input class="block" type="text" name="field_image_id" id="field_image_id" required>
+            <label for="field_image_title">Image title:</label>
+            <input class="block" type="text" name="field_image_title" id="field_image_title">
+            <label for="field_image_url">Image URL:</label>
+            <input class="block" type="text" name="field_image_url" id="field_image_url" required>
+            <input class="inline" type="submit" value="Submit">
+            <div class="loader inline hidden"></div>
+        </form>
+        <div id="image_upload_success" class="hidden">Success!</div>
+        <div id="image_upload_failure" class="hidden">Failure!</div>
+    </div>
+    <div class="inline-block column" id="col2">22</div>
+</div>
+
+</body>
+
+<link rel="stylesheet" type="text/css" href="common.css">
+<script src="logic.js"></script>
+
+</html>
