@@ -17,6 +17,8 @@ h1 {
 .column {
     width: 47.5%;
     padding: 1%;
+    vertical-align: top;
+    border: 1px solid black;
 }
 
 .block {
@@ -24,7 +26,7 @@ h1 {
 }
 
 #col1 {
-    border: 1px solid black;
+
 }
 
 #image_upload_success {
@@ -38,6 +40,8 @@ h1 {
 .hidden {
     display: none;
 }
+
+/*Loader*/
 
 .loader {
     border: 2px solid #f3f3f3;
@@ -58,4 +62,32 @@ h1 {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/*List element*/
+
+li {
+    margin: 10px 0 10px;
+}
+
+.show_image_button {
+    width: 30px;
+}
+
+.delete_image_button {
+    width: 20px;
+
+}
+
+.edit_image_button {
+    width: 20px;
+}
+
+.button {
+    display: inline;
+    margin: 0 5px 0;
+}
+
+.saved_task_label {
+    margin: 0 5px 0;
 }

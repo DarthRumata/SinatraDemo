@@ -11,6 +11,7 @@ require './uploaders/image_uploader'
 require './models/task'
 require './serializers/base_serializer'
 require './serializers/task_serializer'
+require './workers/image_worker'
 
 Dotenv.load '.env'
 
@@ -23,7 +24,6 @@ class TaskModule < Sinatra::Base
     enable :run
     set :raise_sinatra_param_exceptions, true
     set show_exceptions: false
-    set public_folder: 'uploads'
   end
 
   before do
@@ -43,16 +43,18 @@ class TaskModule < Sinatra::Base
   end
 
   get '/' do
-    all_tasks = Task.all?(:limit => 10)
-    json(
+    all_tasks = []
+    Task.all.each do |task|
+      all_tasks.append(task)
+    end
 
-    )
+    json all_tasks
   end
 
   post '/' do
     param :id, String, required: true
     param :title, String, required: true
-    param :image, String, required: true
+    param :image, String, required: true, blank: false
 
     id = params['id']
     title = params['title']
@@ -70,7 +72,11 @@ class TaskModule < Sinatra::Base
 
     id = params['id']
     Task.find(id: id).delete
-    status 204
+    status 200
+  end
+
+  post '/process/:id' do
+    Workers::ImageWorker.perform_async(params['id'])
   end
 
   error Sinatra::Param::InvalidParameterError do

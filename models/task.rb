@@ -6,14 +6,6 @@ class Task
 
   mount_uploader :image, ImageUploader
 
-  def to_json
-    {
-        'id' => :id,
-        'title' => :title,
-        'image' => :image
-    }
-  end
-
 end
 
 

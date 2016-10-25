@@ -5,7 +5,7 @@
     <title>Image Service</title>
 </head>
 
-<body>
+<body onload="refreshSavedImagesList()">
 
 <h1>Image processing server</h1>
 <div class="container">
@@ -24,7 +24,10 @@
         <div id="image_upload_success" class="hidden">Success!</div>
         <div id="image_upload_failure" class="hidden">Failure!</div>
     </div>
-    <div class="inline-block column" id="col2">22</div>
+    <div class="inline-block column" id="col2">
+        <h2>Saved images</h2>
+        <ol id="task_list"></ol>
+    </div>
 </div>
 
 </body>
