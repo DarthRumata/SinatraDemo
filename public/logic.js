@@ -149,7 +149,7 @@ function editImageWithId(id) {
         }
         element.disabled = false;
         if (this.status == 200) {
-            //TODO: Add alert
+            window.alert("Added to queue!");
         }
     };
     request.send();
