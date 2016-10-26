@@ -21,25 +21,12 @@ class TaskModule < Sinatra::Base
   register Sinatra::Initializers
 
   configure do
-    enable :run
     set :raise_sinatra_param_exceptions, true
     set show_exceptions: false
   end
 
   before do
     content_type 'application/json'
-  end
-
-  get '/:id' do
-    task = Task.find params['id']
-    json(
-        {task:
-             {
-                 id: task.id.to_s,
-                 title: task.title
-             }
-        }
-    )
   end
 
   get '/' do
@@ -72,7 +59,7 @@ class TaskModule < Sinatra::Base
 
     id = params['id']
     Task.find(id: id).delete
-    status 200
+    status 204
   end
 
   post '/process/:id' do

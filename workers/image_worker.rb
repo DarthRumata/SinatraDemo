@@ -10,7 +10,7 @@ module Workers
 
     def perform(id)
       task = Task.find(id: id)
-      logger.info "Job is done: #{task.id}"
+
       unless task.image.file.nil?
         image = MiniMagick::Image.new(task.image.current_path)
         image.flip

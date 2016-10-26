@@ -130,7 +130,7 @@ function deleteTaskWithId(id) {
             return
         }
         element.disabled = false;
-        if (this.status == 200) {
+        if (this.status == 204) {
             element.parentNode.removeChild(element);
         }
     };
