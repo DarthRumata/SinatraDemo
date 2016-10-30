@@ -1,3 +1,4 @@
+
 class Task
   include Mongoid::Document
 

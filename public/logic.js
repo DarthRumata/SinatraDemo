@@ -2,6 +2,8 @@
  * Created by rumata on 10/11/16.
  */
 
+var imageContent = null;
+
 function addNewImage() {
     hideResponses();
 
@@ -9,10 +11,11 @@ function addNewImage() {
     setFormStateDisabled(form, true);
     var id = form["field_image_id"].value;
     var title = form["field_image_title"].value;
-    var url = form["field_image_url"].value;
+    var hasContent = imageContent != null;
+    var type = hasContent ? "base64" : "url";
 
     var request = new XMLHttpRequest();
-    var params = "id=" + id + "&title=" + title + "&image=" + url;
+    var params = "id=" + id + "&title=" + title + "&type=" + type;
     request.open("POST", "/tasks?" + params);
     request.onreadystatechange = function () {
         setFormStateDisabled(form, false);
@@ -26,7 +29,10 @@ function addNewImage() {
             document.getElementById("image_upload_failure").className = "visible";
         }
     };
-    request.send();
+
+    var url = form["field_image_url"].value;
+    var payload = hasContent ? imageContent : url;
+    request.send(payload);
 
     return false
 }
@@ -58,14 +64,14 @@ function refreshSavedImagesList() {
         if (this.status == 200) {
             tasks = JSON.parse(request.response);
             var list = document.getElementById("task_list");
-            while(list.lastChild) {
+            while (list.lastChild) {
                 list.removeChild(list.lastChild);
             }
             for (var i = 0; i < tasks.length; i++) {
                 var task = tasks[i];
                 var id = task["id"];
                 var title = task["title"] || "Image without title";
-                var url = task["image"] ;
+                var url = task["image"];
 
                 var rowElement = document.createElement("li");
                 rowElement.id = "task_" + id;
@@ -153,4 +159,31 @@ function editImageWithId(id) {
         }
     };
     request.send();
+}
+
+function updateUploads() {
+    var form = document.forms["addImage"];
+    var files = form["file_uploader"].files;
+    if (files.length != 1) {
+        return;
+    }
+
+    var file = files[0];
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        var urlField = form["field_image_url"];
+        urlField.disabled = true;
+        imageContent = this.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function removeFile() {
+    var form = document.forms["addImage"];
+    var uploader = form["file_uploader"];
+    uploader.value = "";
+    imageContent = null;
+
+    var urlField = form["field_image_url"];
+    urlField.disabled = false;
 }

@@ -16,9 +16,13 @@
             <input class="block" type="text" name="field_image_id" id="field_image_id" required>
             <label for="field_image_title">Image title:</label>
             <input class="block" type="text" name="field_image_title" id="field_image_title">
-            <label for="field_image_url">Image URL:</label>
-            <input class="block" type="text" name="field_image_url" id="field_image_url" required>
-            <input class="inline" type="submit" value="Submit">
+            <label class="block" for="field_image_url">Image URL:</label>
+            <input class="inline" type="text" name="field_image_url" id="field_image_url" required>
+            <input class="inline" type="file" name="file_uploader" id="file_uploader" accept="image/*"
+                   onchange="updateUploads()">
+            <input class="inline" type="button" name="remove_file_btn" id="remove_file_btn"
+                   onclick="removeFile()" value="Remove file">
+            <input class="block" type="submit" value="Submit">
             <div class="loader inline hidden"></div>
         </form>
         <div id="image_upload_success" class="hidden">Success!</div>

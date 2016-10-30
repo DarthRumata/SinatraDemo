@@ -12,12 +12,13 @@ require './models/task'
 require './serializers/base_serializer'
 require './serializers/task_serializer'
 require './workers/image_worker'
+require './helpers/base64_decoder'
 
 Dotenv.load '.env'
 
 class TaskModule < Sinatra::Base
 
-  helpers Sinatra::Param
+  helpers Sinatra::Param, Decoder
   register Sinatra::Initializers
 
   configure do
@@ -41,15 +42,29 @@ class TaskModule < Sinatra::Base
   post '/' do
     param :id, String, required: true
     param :title, String, required: true
-    param :image, String, required: true, blank: false
+    param :type, String, required: true, in: ['base64', 'url']
+
+    one_of :imageUrl, :imageContent
 
     id = params['id']
     title = params['title']
-    image = params['image']
+    type = params['type']
+
     task = Task.create(id: id, title: title)
-    task.remote_image_url = image
+    if type == 'base64'
+      encoded_image = request.body.read
+      decoded_image = Base64Decoder.decode(encoded_image)
+      file = File.new('new.jpg', 'wb')
+      file.write(decoded_image)
+      task.image = file
+    else
+      url = request.body.read
+      task.remote_image_url = url
+    end
 
     task.save!
+
+
 
     json task
   end
@@ -63,6 +78,8 @@ class TaskModule < Sinatra::Base
   end
 
   post '/process/:id' do
+    param :id, String, required: true
+
     Workers::ImageWorker.perform_async(params['id'])
   end
 
